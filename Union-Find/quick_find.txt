@@ -1,0 +1,40 @@
+Track connectedness of multiple subsets of a set (dynamic connectivity problem)
+
+Initialize a list of length N, where each index of the list represents a node. The value to which the index corresponds
+represents the set to which it belongs. Two nodes p and q are connected if and only if the id of p == the id of q
+
+For example, after initializing a list, node_ids, of length 10, node_ids would equal:
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+To connect two nodes p and q together, we'd use the union(p, q) method. This sets all nodes in node_ids where
+the value is equal to node_ids[p] to node_ids[q]
+
+For example, after union(3, 4), node_ids now equals:
+[0, 1, 2, 4, 4, 5, 6, 7, 8, 9]
+
+Node 3 and node 4 now belong to the same set, identified by the number 4.
+
+The connected(p, q) method returns a boolean, True if p and q are in the same set, False if not.
+connected(3, 4) == True
+connected(1, 3) == False
+
+The sets are now:
+(0), (1), (2), (3, 4), (5), (6), (7), (8), and (9)
+
+After some additional union() commands:
+union(7, 9)
+node_ids == [0, 1, 2, 4, 4, 5, 6, 9, 8, 9]
+sets are now:
+(0), (1), (2), (3, 4), (5), (6), (7, 9), (8)
+
+union(4, 9)
+node_ids == [0, 1, 2, 9, 9, 5, 6, 9, 8, 9]
+sets are now:
+(0), (1), (2), (3, 4, 7, 9), (5), (6), (8)
+
+union(1, 8)
+nodes_ids == [0, 8, 2, 9, 9, 5, 6, 9, 8, 9]
+sets are now (0), (1, 8), (2), (3, 4, 7, 9), (5), (6)
+
+This is an eager implementation and will perform in O(n**2) (quadratic) time. It will not perform well with a large input N,
+as it will take N**2 list accesses to process a sequence of N union commands on N objects
